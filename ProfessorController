@@ -1,0 +1,5 @@
+class ProfessorController{
+ function handle($p){
+  require 'views/professor/grades.php';
+ }
+}
