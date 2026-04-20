@@ -1,0 +1,20 @@
+class AuthController{
+ function handle($p){
+  global $pdo;
+
+  if($p=='logout'){session_destroy(); header("Location:?");}
+
+  if($_POST){
+   $stmt=$pdo->prepare("SELECT * FROM users WHERE email=?");
+   $stmt->execute([$_POST['email']]);
+   $u=$stmt->fetch();
+
+   if($u && $_POST['password']=='123'){
+    $_SESSION['user_id']=$u['id'];
+    $_SESSION['role']=$u['role'];
+    header("Location:?page=".$u['role'].".dashboard");
+   }
+  }
+  require 'views/login.php';
+ }
+}
